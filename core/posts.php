@@ -6,9 +6,12 @@ function szbl_setup_post( $post )
 {
 	global $szbl_org_post;
 
-	$szbl_org_post = $GLOBALS['post'];
 
-	$GLOBALS['post'] = $post;
+	if ( isset( $GLOBALS['post'] ) )
+	{
+		$szbl_org_post = $GLOBALS['post'];
+		$GLOBALS['post'] = $post;
+	}
 	setup_postdata( $post );
 }
 
@@ -21,6 +24,7 @@ function szbl_reset_post()
 	global $szbl_org_post;
 
 	szbl_setup_post( $szbl_org_post );
+	$GLOBALS['post'] = $szbl_org_post;
 }
 
 endif;
