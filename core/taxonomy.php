@@ -71,15 +71,21 @@ Return list of terms without linking
 */
 function szbl_the_terms_text( $taxonomy, $before = '', $after = '', $sep = '' )
 {
+	echo szbl_get_the_terms_text( $taxonomy, $before, $after, $sep );
+}
+function szbl_get_the_terms_text( $taxonomy, $before = '', $after = '', $sep = '' )
+{
 	$terms = get_the_terms( get_the_ID(), $taxonomy, '', ', ', '' );
-
 	$output = array();
 
-	foreach ( $terms as $term )
+	if ( is_array( $terms ) ) 
 	{
-		$output[] = $term->name;
+		foreach ( $terms as $term )
+		{
+			$output[] = $term->name;
+		}
 	}
 
 	$output = implode( $sep, $output );
-	echo $before . $output . $after;
+	return $before . $output . $after;
 }
