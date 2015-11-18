@@ -55,3 +55,20 @@ function szbl_get_image_attachments( $post_id = false, $args = array() )
 }
 
 endif; 
+
+if ( !function_exists( 'szbl_get_thumbnail_url' ) ) :
+
+/**
+ * Returns URL of post thumbnail at specified image size.
+ */
+function szbl_get_thumbnail_url( $ID = false, $size = 'full' )
+{
+	if ( !$ID )
+		$ID = get_the_ID();
+
+	$img = wp_get_attachment_image_src( get_post_thumbnail_ID( $ID ), $size );
+
+	return $img[0];
+}
+
+endif; 
