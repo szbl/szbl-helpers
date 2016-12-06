@@ -66,7 +66,22 @@ function szbl_get_thumbnail_url( $ID = false, $size = 'full' )
 	if ( !$ID )
 		$ID = get_the_ID();
 
-	$img = wp_get_attachment_image_src( get_post_thumbnail_ID( $ID ), $size );
+	return szbl_get_image_url( get_post_thumbnail_id( $ID ), $size );
+}
+
+endif; 
+
+if ( !function_exists( 'szbl_get_image_url' ) ) :
+
+/**
+ * Returns URL of image at specified image size.
+ */
+function szbl_get_image_url( $att_id = false, $size = 'full' )
+{
+	if ( !$att_id )
+		return false;
+
+	$img = wp_get_attachment_image_src( $att_id, $size );
 
 	return $img[0];
 }
